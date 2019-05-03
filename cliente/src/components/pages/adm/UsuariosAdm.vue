@@ -52,14 +52,16 @@
                 </thead>
                 <tbody>
                     <tr v-for="user in users" :key="user.id">
-                        <td class="align-middle"><small>{{ user.id }}</small></td>
+                        <td class="align-middle"><small>{{ user.name }}</small></td>
                         <td class="align-middle"><small>{{ user.email }}</small></td>
                         <td class="align-middle"><small>{{ user.tipo }}</small></td>
                         <td class="align-middle"><small>{{ user.endereco }}</small></td>
                         <td class="align-middle"><small>{{ user.telefone }}</small></td>
                         <td class="align-middle"><small>{{ user.cpf }}</small></td>
                         <td class="align-middle">
-                            <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
+                            <router-link :to="'/adm/update/'+user.id">
+                                <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
+                            </router-link>
                             <button class="btn btn-danger btn-sm" v-on:click="deletar(user.id)"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
@@ -108,27 +110,30 @@
         methods:{
 
             deletar(usuario){
-                axios.delete(`http://localhost:8000/api/deleteusuario/${usuario}`, {
-                
-                })
-                .then(response => {
-
-                    axios.get(`http://localhost:8000/api/usuarios`, {
+                if(confirm("Essa ação não podera ser desfeita! Tem certeza?")){
+                    axios.delete(`http://localhost:8000/api/deleteusuario/${usuario}`, {
                 
                     })
                     .then(response => {
-                        this.users = response.data;
+
+                        axios.get(`http://localhost:8000/api/usuarios`, {
+                    
+                        })
+                        .then(response => {
+                            this.users = response.data;
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+
+                        alert("Usuario deletado com sucesso!");
+
                     })
                     .catch(e => {
                         console.log(e);
                     });
-
-                    alert("Usuario deletado com sucesso!");
-
-                })
-                .catch(e => {
-                    console.log(e);
-                });
+                }
+                
             }
 
         },

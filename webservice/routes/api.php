@@ -28,6 +28,70 @@ Route::delete('/deleteusuario/{id}', function ($id) {
 
 });
 
+Route::get('/usuario/{id}', function ($id) {
+
+    return User::find($id);
+
+});
+
+Route::post('/update-usuario', function (Request $request) {
+
+    $data = $request->all();
+    $teste = false;
+
+    if($user = User::all()->where('email', $data['email'])->first()){
+        
+        if($user->id != $data['id']){
+
+            return "Email ja existe";
+    
+        }else{
+    
+            User::find($data['id'])->update([
+
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'tipo' => $data['tipo'],
+                'endereco' => $data['endereco'],
+                'telefone' => $data['telefone'],
+                'cpf' => $data['cpf'],
+        
+            ]);
+    
+        }
+
+    }else{
+        
+        User::find($data['id'])->update([
+
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'tipo' => $data['tipo'],
+            'endereco' => $data['endereco'],
+            'telefone' => $data['telefone'],
+            'cpf' => $data['cpf'],
+    
+        ]);
+
+    }
+
+    $validacao = Validator::make($data, [
+        'name' => ['required', 'string', 'max:255'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'tipo' => ['required', 'string'],
+        'endereco' => ['string'],
+        'telefone' => ['string'],
+        'cpf' => ['string']
+    ]);
+
+    if($validacao->fails()){
+        return $validacao->errors();
+    }
+
+    
+
+});
+
 Route::post('/cadastro', function(Request $request) {
 
     $data = $request->all();
@@ -92,3 +156,4 @@ Route::post('/login', function (Request $request) {
     }
 
 });
+
