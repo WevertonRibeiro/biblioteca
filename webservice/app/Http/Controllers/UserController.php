@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use Auth;
 
 class UserController extends Controller{
     
@@ -112,37 +113,6 @@ class UserController extends Controller{
                 'cpf' => $data['cpf'],
         
             ]);
-
-        }
-
-    }
-
-    public function login(Request $request){
-
-        $data = $request->all();
-
-        $validacao = Validator::make($data, [
-
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'password' => ['required', 'string'],
-
-        ]);
-
-        if($validacao->fails()){
-
-            return $validacao->errors();
-
-        }
-
-        if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
-
-            $user = auth()->user();
-            $user->token = Hash::make($data['email']);
-            return $user;
-
-        }else{
-
-            return ['status'=>false];
 
         }
 

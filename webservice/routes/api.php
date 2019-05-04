@@ -21,7 +21,36 @@ Route::get('/usuario/{id}', 'UserController@getUsuario');
 Route::delete('/deleteusuario/{id}', 'UserController@deleteUsuario');
 Route::post('/update-usuario', 'UserController@updateUsuario');
 Route::post('/cadastro', 'UserController@cadastroUsuario');
-Route::post('/login', 'UserController@login');
+Route::post('/login', function (Request $request){
+
+    $data = $request->all();
+
+    $validacao = Validator::make($data, [
+
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'password' => ['required', 'string'],
+
+    ]);
+
+    if($validacao->fails()){
+
+        return $validacao->errors();
+
+    }
+
+    if(Auth::attempt(['email'=>$data['email'], 'password'=>$data['password']])){
+
+        $user = auth()->user();
+        $user->token = Hash::make($data['email']);
+        return $user;
+
+    }else{
+
+        return ['status'=>false];
+
+    }
+
+});
 
 Route::get('/livros', function (Request $request) {
     
