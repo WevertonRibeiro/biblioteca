@@ -99,7 +99,7 @@ Route::post('/cadastro', function(Request $request) {
     $validacao = Validator::make($data, [
         'name' => ['required', 'string', 'max:255'],
         'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        'password' => ['required', 'string', 'min:8', 'confirmed'],
+        'password' => ['required', 'string', 'min:6', 'confirmed'],
         'tipo' => ['required', 'string'],
         'endereco' => ['string'],
         'telefone' => ['string'],

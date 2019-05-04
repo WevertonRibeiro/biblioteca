@@ -33,7 +33,9 @@
                             </button>
                         </div>
                     </div>
-                    <button class="btn btn-primary float-left"><i class="fas fa-plus"></i> Novo</button>
+                    <router-link to="novo-livro">
+                        <button class="btn btn-primary float-left"><i class="fas fa-plus"></i> Novo</button>
+                    </router-link>
                 </div>
             </div>
             <table class="table table-striped table-bordered" style="background:white;">

@@ -12,6 +12,7 @@ import LivrosAdm from '@/components/pages/adm/LivrosAdm'
 import UsuariosAdm from '@/components/pages/adm/UsuariosAdm'
 import AddUsuario from '@/components/pages/adm/AddUsuario'
 import UpdateUsuario from '@/components/pages/adm/UpdateUsuario'
+import AddLivro from '@/components/pages/adm/AddLivro'
 
 
 Vue.use(Router)
@@ -33,6 +34,11 @@ export default new Router({
       path: '/adm/update/:id',
       name: 'UpdateUsuario',
       component: UpdateUsuario
+    },
+    {
+      path: '/adm/novo-livro',
+      name: 'AddLivro',
+      component: AddLivro
     },
     {
       path: '/login',

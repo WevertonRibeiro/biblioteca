@@ -13,19 +13,15 @@ class CreateTableLivros extends Migration
      */
     public function up()
     {
-        Schema::create('table_livros', function (Blueprint $table) {
+        Schema::create('livros', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
-
-
-            
             $table->string('titulo');
             $table->string('descricao');
-            $table->timestamp('ano');
+            $table->string('ano');
             $table->string('autor');
             $table->string('editora');
-            $table->string('imagem')-nullable();
-        
+            $table->string('imagem');
+            $table->timestamps();
         });
     }
 
@@ -36,6 +32,6 @@ class CreateTableLivros extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('table_livros');
+        Schema::dropIfExists('livros');
     }
 }
