@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use App\Livros;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,13 @@ Route::get('/usuarios', function (Request $request) {
     
     $users = User::all();
     return $users;
+    
+});
+
+Route::get('/livros', function (Request $request) {
+    
+    $livros = Livros::all();
+    return $livros;
     
 });
 
@@ -89,6 +97,38 @@ Route::post('/update-usuario', function (Request $request) {
     }
 
     
+
+});
+
+Route::post('/cadastro/livro', function(Request $request) {
+
+    $data = $request->all();
+
+    $validacao = Validator::make($data, [
+
+        'titulo' => ['required', 'string', 'max:255'],
+        'descricao' => ['required', 'string', 'max:255'],
+        'ano' => ['required', 'string'],
+        'autor' => ['required', 'string'],
+        'editora' => ['string']
+        
+    ]);
+
+    if($validacao->fails()){
+        return $validacao->errors();
+    }
+
+    Livros::create([
+        'titulo' => $data['titulo'],
+        'descricao' => $data['descricao'],
+        'ano' => $data['ano'],
+        'autor' => $data['autor'],
+        'editora' => $data['editora'],
+        'status' => $data['status'],
+        'imagem' => $data['imagem']
+    ]);
+
+    return "Livro Adicionado com sucesso!";
 
 });
 

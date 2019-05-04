@@ -51,49 +51,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="align-middle">A Cinco Passos De Você</td>
-                        <td>Stella Grant gosta de estar no controle. Ela parece ser uma adolescente típica, mas em sua rotina há listas de tarefas e inúmeros remédios que ela deve tomar para</td>
-                        <td class="align-middle">2019</td>
-                        <td class="align-middle">Lucia Bacard</td>
-                        <td class="align-middle">Saraiva</td>
-                        <td><img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10505612&qld=90&l=430&a=-1=1006736459" style="width:50px;"></td>
-                        <td class="align-middle">
-                            <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">A Cinco Passos De Você</td>
-                        <td>Stella Grant gosta de estar no controle. Ela parece ser uma adolescente típica, mas em sua rotina há listas de tarefas e inúmeros remédios que ela deve tomar para</td>
-                        <td class="align-middle">2019</td>
-                        <td class="align-middle">Lucia Bacard</td>
-                        <td class="align-middle">Saraiva</td>
-                        <td><img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10505612&qld=90&l=430&a=-1=1006736459" style="width:50px;"></td>
-                        <td class="align-middle">
-                            <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">A Cinco Passos De Você</td>
-                        <td>Stella Grant gosta de estar no controle. Ela parece ser uma adolescente típica, mas em sua rotina há listas de tarefas e inúmeros remédios que ela deve tomar para</td>
-                        <td class="align-middle">2019</td>
-                        <td class="align-middle">Lucia Bacard</td>
-                        <td class="align-middle">Saraiva</td>
-                        <td><img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10505612&qld=90&l=430&a=-1=1006736459" style="width:50px;"></td>
-                        <td class="align-middle">
-                            <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="align-middle">A Cinco Passos De Você</td>
-                        <td>Stella Grant gosta de estar no controle. Ela parece ser uma adolescente típica, mas em sua rotina há listas de tarefas e inúmeros remédios que ela deve tomar para</td>
-                        <td class="align-middle">2019</td>
-                        <td class="align-middle">Lucia Bacard</td>
-                        <td class="align-middle">Saraiva</td>
-                        <td><img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10505612&qld=90&l=430&a=-1=1006736459" style="width:50px;"></td>
+                    <tr v-for="livro in livros" :key="livro.id">
+                        <td class="align-middle">{{livro.titulo}}</td>
+                        <td>{{livro.descricao}}</td>
+                        <td class="align-middle">{{livro.ano}}</td>
+                        <td class="align-middle">{{livro.autor}}</td>
+                        <td class="align-middle">{{livro.editora}}</td>
+                        <td><img :src="livro.imagem" style="width:50px;"></td>
                         <td class="align-middle">
                             <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
                             <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
@@ -107,6 +71,7 @@
 
 <script>
 
+    import axios from 'axios'
     import LeitorTemplate from '@/components/templates/LeitorTemplate'
     import MenuLateral from '@/components/layouts/MenuLateral';    
 
@@ -119,7 +84,7 @@
         },
         data() {
             return {
-
+                livros:{}
             }
         },
         created(){
@@ -147,6 +112,16 @@
             }else{
                 this.$router.push('/login');
             }
+
+            axios.get(`http://localhost:8000/api/livros`, {
+                
+            })
+            .then(response => {
+                this.livros = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            });
 
         }
     }

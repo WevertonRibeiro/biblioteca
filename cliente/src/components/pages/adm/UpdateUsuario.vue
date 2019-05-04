@@ -42,6 +42,9 @@
                         <input type="text" v-model="user.telefone"><br>
                         <label for="">CPF:</label><br>
                         <input type="text" v-model="user.cpf"><br>
+                        <router-link to="/adm/usuarios">
+                            <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
+                        </router-link>
                         <button v-on:click="update()" class="btn btn-primary" style="margin-top:10px;">Salvar</button>
                     </div>
                 </div>

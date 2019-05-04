@@ -29,15 +29,21 @@
                         <label for="">Titulo:</label><br>
                         <input type="text" v-model="titulo"><br>
                         <label for="">Descrição:</label><br>
-                        <input type="text" v-model="descricao"><br>
+                        <textarea cols="30" rows="6" v-model="descricao"></textarea><br>
                         <label for="">Ano:</label><br>
-                        <input type="date" v-model="ano"><br>
+                        <input type="text" v-model="ano"><br>
                         <label for="">Autor:</label><br>
                         <input type="text" v-model="autor"><br>
                         <label for="">Editora:</label><br>
                         <input type="text" v-model="editora"><br>
+                        <label for="">Status:</label><br>
+                        <select v-model="status">
+                            <option value="A">Disponivel</option>
+                            <option value="B">Reservado</option>
+                            <option value="C">Alugado</option>
+                        </select>
                         <label for="">Imagem:</label><br>
-                        <input type="file" v-on:change="getBase64" /><br>
+                        <input type="file" v-on:change="getBase64" disabled/><br>
                         <router-link to="/adm/livros">
                             <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
                         </router-link>
@@ -51,6 +57,7 @@
 
 <script>
 
+    import axios from 'axios'
     import LeitorTemplate from '@/components/templates/LeitorTemplate'
     import MenuLateral from '@/components/layouts/MenuLateral' 
 
@@ -68,6 +75,7 @@
                 ano:'',
                 autor:'',
                 editora:'',
+                status:'',
                 imagem:''
             }
         },
@@ -98,6 +106,25 @@
             cadastrar(){
 
                 
+                axios.post(`http://localhost:8000/api/cadastro/livro`, {
+
+                    titulo: this.titulo,
+                    descricao: this.descricao,
+                    ano: this.ano,
+                    autor: this.autor,
+                    editora: this.editora,
+                    status: this.status,
+                    imagem: 'https://www.tornado-studios.com/sites/default/files/styles/slider_full/public/products/1256/gallery/classic_book_01_standing_open_thumbnail_square_0000.jpg?itok=Rrfo0kt2'
+
+                })
+                .then(response => {
+                    
+                    alert("Livro Adicionado com sucesso");
+
+                })
+                .catch(e => {
+                    console.log(e);
+                });
 
             }
 

@@ -93,7 +93,6 @@
                     password: this.password
                 })
                 .then(response => {
-                    console.log(response);
                     if(response.data.token){
 
                         sessionStorage.clear();
