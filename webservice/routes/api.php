@@ -30,6 +30,32 @@ Route::get('/livros', function (Request $request) {
     
 });
 
+Route::get('/livro/{id}', function ($id) {
+    
+    return Livros::find($id);
+    
+});
+
+Route::post('/livro/update', function (Request $request) {
+    
+    $data = $request->all();
+
+    Livros::find($data['id'])->update([
+
+        'titulo' => $data['titulo'],
+        'descricao' => $data['descricao'],
+        'ano' => $data['ano'],
+        'autor' => $data['autor'],
+        'editora' => $data['editora'],
+        'status' => $data['status'],
+        'imagem' => $data['imagem']
+
+    ]);
+
+    return "Livro Atualizado com sucesso!";
+    
+});
+
 Route::delete('/deleteusuario/{id}', function ($id) {
 
     User::find($id)->delete();

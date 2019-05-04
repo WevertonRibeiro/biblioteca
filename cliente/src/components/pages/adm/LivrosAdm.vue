@@ -59,7 +59,9 @@
                         <td class="align-middle">{{livro.editora}}</td>
                         <td><img :src="livro.imagem" style="width:50px;"></td>
                         <td class="align-middle">
-                            <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
+                            <router-link :to="'/adm/livro/update/'+livro.id">
+                                <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
+                            </router-link>
                             <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
