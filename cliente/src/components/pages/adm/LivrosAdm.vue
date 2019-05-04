@@ -62,7 +62,7 @@
                             <router-link :to="'/adm/livro/update/'+livro.id">
                                 <button class="btn btn-info btn-sm"><i class="fas fa-pen"></i></button>
                             </router-link>
-                            <button class="btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+                            <button class="btn btn-danger btn-sm" v-on:click="deleteLivro(livro.id)"><i class="fas fa-times"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -88,6 +88,27 @@
             return {
                 livros:{}
             }
+        },
+        methods:{
+
+            deleteLivro(id){
+
+                if(confirm("Essa ação não podera ser desfeita! Tem certeza?")){
+
+                    axios.delete(`http://localhost:8000/api/livro/delete/${id}`, {
+                
+                    })
+                    .then(response => {
+                        this.livros = response.data;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+
+                }
+
+            }
+
         },
         created(){
 

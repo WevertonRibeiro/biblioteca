@@ -33,26 +33,17 @@
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <CardLivros 
-                            image="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10505612&qld=90&l=430&a=-1=1006736459"
-                            title="A Cinco Passos De Você"
-                            description="Stella Grant gosta de estar no controle. Ela parece ser uma adolescente típica, mas em sua rotina há listas de tarefas e inúmeros remédios que ela deve tomar para"
-                            />
-                        <CardLivros 
-                            image="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10506043&qld=90&l=430&a=-1=1006718667"
-                            title="Cinzas Na Neve"
-                            description="PUBLICADO ORIGINALMENTE COMO A VIDA EM TONS DE CINZA. Cinzas na neve venceu o prêmio Golden Kite e foi adaptado para o cinema em 2018. “Poucos livros são lindamente..."
-                            />
-                        <CardLivros 
-                            image="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10506358&qld=90&l=430&a=-1=1007031694"
-                            title="Senhora Do Fogo"
-                            description="Sinopse da obra ALGUMAS PAIXÕES CURAM. OUTRAS DESTRÕEM. Mehmed está construindo um império, tornando-se o sultão que seu povo precisa. E guarda consigo..."
-                            />
-                        <CardLivros 
-                            image="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10504397&qld=90&l=430&a=-1=1006715015"
-                            title="Um Estranho Irresistível"
-                            description="Uma mulher que desafia seu tempo Dr. Garret Gibson, a única médica mulher na Inglaterra, é tão ousada e independente quanto qualquer homem – por que não lidar com..."
-                            />
+                        <div v-for="livro in livros" :key="livro.id">
+                            <CardLivros 
+                            :image="livro.imagem"
+                            :title="livro.titulo"
+                            :description="livro.descricao"
+                            >
+                            <div slot="status">
+                                <i class="far fa-check-circle"></i> {{livro.status}}
+                            </div>
+                            </CardLivros>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -63,6 +54,7 @@
 
 <script>
 
+    import axios from 'axios'
     import CardLivros from '@/components/layouts/CardLivros';
     import LeitorTemplate from '@/components/templates/LeitorTemplate';
     import MenuLateral from '@/components/layouts/MenuLateral';
@@ -76,8 +68,45 @@
         },
         data () {
             return {
-
+                livros:{}
             }
+        },
+        created(){
+
+            let usuario = sessionStorage.getItem('usuario');
+
+            if(usuario){
+
+                this.usuario = JSON.parse(usuario);
+
+                switch(this.usuario.tipo){
+
+                    case 's':
+                        this.$router.push('/adm/home');
+                    break;
+                    case 'a':
+                        this.$router.push('/atendete/home');
+                    break;
+                    case 'b':
+                        
+                    break;
+
+                }
+
+            }else{
+                this.$router.push('/login');
+            }
+
+            axios.get(`http://localhost:8000/api/livros`, {
+                
+            })
+            .then(response => {
+                this.livros = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+
         }
     }
 </script>

@@ -116,17 +116,7 @@
                     })
                     .then(response => {
 
-                        axios.get(`http://localhost:8000/api/usuarios`, {
-                    
-                        })
-                        .then(response => {
-                            this.users = response.data;
-                        })
-                        .catch(e => {
-                            console.log(e);
-                        });
-
-                        alert("Usuario deletado com sucesso!");
+                        this.users = response.data;
 
                     })
                     .catch(e => {

@@ -11,7 +11,7 @@
                     <p class="card-text">
                         <small class="text-muted">
                             <span class="text-success">
-                                <i class="far fa-check-circle"></i> Disponivel
+                                <slot name="status"></slot>
                             </span>
                         </small>
                     </p>
