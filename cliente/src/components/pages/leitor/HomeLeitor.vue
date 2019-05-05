@@ -53,38 +53,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr v-for="reserva in reservas" :key="reserva.id">
                                 <td scope="row">
-                                    <img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10504397&qld=90&l=430&a=-1=1006715015" width="50px">
-                                    Um Estranho Irresistível
+                                    <img :src="reserva.imagem" width="50px">
+                                    {{reserva.titulo}}
                                 </td>
-                                <td class="align-middle">Reservado</td>
+                                <td class="align-middle" v-if=" reserva.status == 'R' ">Reservado</td>
+                                <td class="align-middle" v-if=" reserva.status == 'A' ">Alugado</td>
                                 <td class="align-middle">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" v-if=" reserva.status == 'R' " v-on:click="cancelar(reserva.id, reserva.livro_id)">
                                         Cancelar <i class="fas fa-times"></i>
                                     </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10506043&qld=90&l=430&a=-1=1006718667" width="50px">
-                                    Cinzas Na Neve
-                                </td>
-                                <td class="align-middle">Alugado</td>
-                                <td class="align-middle">
-                                    <button type="button" class="btn btn-danger" disabled>
-                                        Cancelar <i class="fas fa-times"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td scope="row">
-                                    <img src="https://images.livrariasaraiva.com.br/imagemnet/imagem.aspx/?pro_id=10506358&qld=90&l=430&a=-1=1007031694" width="50px">
-                                    Senhora Do Fogo
-                                </td>
-                                <td class="align-middle">Reservado</td>
-                                <td class="align-middle">
-                                    <button type="button" class="btn btn-danger">
+                                    <button type="button" class="btn btn-danger" v-if=" reserva.status == 'A' " disabled>
                                         Cancelar <i class="fas fa-times"></i>
                                     </button>
                                 </td>
@@ -101,6 +81,7 @@
 
 <script>
 
+    import axios from 'axios';
     import LeitorTemplate from '@/components/templates/LeitorTemplate';
     import CardRecomendados from '@/components/layouts/CardRecomendados';
     import MenuLateral from '@/components/layouts/MenuLateral';
@@ -114,8 +95,85 @@
         },
         data () {
             return {
-
+                reservas:{}
             }
+        },
+        methods:{
+
+            cancelar(reserva, livro){
+
+                if(confirm("Sua reserva sera cancelada. Tem certeza?")){
+
+                    axios.post(`http://localhost:8000/api/cancelar/reserva`, {
+                    
+                        reservaId: reserva,
+                        livroId: livro
+
+                    })
+                    .then(response => {
+                        axios.delete(`http://localhost:8000/api/delete/reserva/${response.data}`, {
+
+                        })
+                        .then(response => {
+                            axios.get(`http://localhost:8000/api/reservas/${this.usuario.id}`, {
+                    
+                            })
+                            .then(response => {
+                                alert("Reserva cancelada com sucesso.");
+                                this.reservas = response.data;
+                            })
+                            .catch(e => {
+                                console.log(e);
+                            });
+                        })
+                        .catch(e => {
+                            console.log(e);
+                        });
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+
+                }
+            }
+
+        },
+        created(){
+
+            let usuario = sessionStorage.getItem('usuario');
+
+            if(usuario){
+
+                this.usuario = JSON.parse(usuario);
+
+                switch(this.usuario.tipo){
+
+                    case 's':
+                        this.$router.push('/adm/home');
+                    break;
+                    case 'a':
+                        this.$router.push('/atendete/home');
+                    break;
+                    case 'b':
+                        
+                    break;
+
+                }
+
+            }else{
+                this.$router.push('/login');
+            }
+
+            axios.get(`http://localhost:8000/api/reservas/${this.usuario.id}`, {
+                
+            })
+            .then(response => {
+                this.reservas = response.data;
+            })
+            .catch(e => {
+                console.log(e);
+            });
+
         }
     }
 

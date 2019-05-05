@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use App\Livros;
+use App\Reservas;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,52 @@ Route::post('/login', function (Request $request){
 
     }
 
+});
+
+Route::post('/reservar/livro', function (Request $request) {
+    
+    $data = $request->all();
+
+    $reservas = User::find($data['userId'])->reservas()->create([
+        'livro_id' => $data['livroId'],
+        'status' => $data['status']
+    ]);
+
+    Livros::find($data['livroId'])->update([
+
+        'status' => 'R',
+
+    ]);
+    
+});
+
+Route::get('/reservas/{id}', function ($id) {
+
+    return $reservas = DB::table('reservas')
+            ->where('user_id', $id)
+            ->leftJoin('livros', 'reservas.livro_id', '=', 'livros.id')
+            ->get();
+    
+});
+
+Route::post('/cancelar/reserva', function (Request $request) {
+
+    $data = $request->all();
+
+    Livros::find($data['livroId'])->update([
+        'status' => 'D'
+    ]);
+
+    return $data['reservaId'];
+    
+});
+
+Route::delete('/delete/reserva/{id}', function ($id) {
+
+    $reserva = DB::table('reservas')
+        ->where('livro_id', $id)
+        ->delete();
+    
 });
 
 Route::get('/livros', function (Request $request) {

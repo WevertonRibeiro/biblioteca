@@ -38,9 +38,9 @@
                         <input type="text" v-model="editora"><br>
                         <label for="">Status:</label><br>
                         <select v-model="status">
-                            <option value="A">Disponivel</option>
-                            <option value="B">Reservado</option>
-                            <option value="C">Alugado</option>
+                            <option value="D">Disponivel</option>
+                            <option value="R">Reservado</option>
+                            <option value="A">Alugado</option>
                         </select>
                         <label for="">Imagem:</label><br>
                         <input type="file" v-on:change="getBase64" disabled/><br>

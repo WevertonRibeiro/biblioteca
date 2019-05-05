@@ -17,9 +17,9 @@ class CreateReservasTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->bigInteger('livro_id')->unsigned();
+            $table->bigInteger('livro_id')->unsigned()->unique();;
             $table->foreign('livro_id')->references('id')->on('livros')->onDelete('cascade');
-            $table->string('status');
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

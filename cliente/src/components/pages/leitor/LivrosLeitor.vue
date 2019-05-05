@@ -40,7 +40,15 @@
                             :description="livro.descricao"
                             >
                             <div slot="status">
-                                <i class="far fa-check-circle"></i> {{livro.status}}
+                                <span v-bind:class="{'text-success': livro.status == 'D', 'text-danger': livro.status !== 'D'}">
+                                    <i class="far fa-check-circle" v-if="livro.status == 'D'"></i>
+                                    <i class="fas fa-times" v-if="livro.status !== 'D'"></i>
+                                    {{livro.status == 'D'? "Disponivel":"Indisponivel"}}
+                                </span>
+                            </div>
+                            <div slot="btns">
+                                <button type="button" class="btn btn-info" v-if="livro.status == 'D'" v-on:click="reservar(livro.id)">Reservar</button>
+                                <button type="button" class="btn btn-info" v-if="livro.status !== 'D'" disabled>Reservar</button>
                             </div>
                             </CardLivros>
                         </div>
@@ -68,8 +76,44 @@
         },
         data () {
             return {
-                livros:{}
+                livros:{},
+                user:{}
             }
+        },
+        methods:{
+
+            reservar($idLivro){
+                
+                axios.post(`http://localhost:8000/api/reservar/livro`, {
+                
+                    userId: this.user.id,
+                    livroId: $idLivro,
+                    status: 'R'
+
+                })
+                .then(response => {
+                    
+                    console.log(response.data);
+
+                    axios.get(`http://localhost:8000/api/livros`, {
+                
+                    })
+                    .then(response => {
+                        this.livros = response.data;
+                    })
+                    .catch(e => {
+                        console.log(e);
+                    });
+
+                    alert("Reservado com sucesso!\nSe em um dia não for retirado na biblioteca voltara a ficar disponivel.");
+
+                })
+                .catch(e => {
+                    console.log(e);
+                });
+
+            }
+
         },
         created(){
 
@@ -78,6 +122,7 @@
             if(usuario){
 
                 this.usuario = JSON.parse(usuario);
+                this.user = JSON.parse(usuario);
 
                 switch(this.usuario.tipo){
 
