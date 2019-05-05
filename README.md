@@ -1,16 +1,19 @@
 # biblioteca
 
 Usuario padrao:<br>
-  email: email@email.com.br<br>
-  senha: senhapadrao<p>
+  email: admin@mail.com<br>
+  senha: 123456<p>
 
 DB configurada:<br>
   Driver: MySQL<br>
   DataBase: biblioteca
   
 Funcionalidades:<br>
-  Login funcionando corretamente para todos os tipos de usuarios mas não a rotas para atendente.<br>
-  Telas de administrador adicionando, deletando e criando novos usuarios
+  <strong>Login:</strong> funcionando corretamente para todos os tipos de usuarios com seus determinados acessos<br>
+  <strong>Telas:</strong><br>
+  <strong>Adiministrador:</strong> Adicionando, Atualizando e deletando usuarios e livros.<br>
+  <strong>Leitor:</strong> Reservando e cancelando suas reservas.<br>
+  <strong>Atendente:</strong> não implementado.
   
-Interface<br>
-  Boa parte da interface pronta mas statica.
+<strong>Interface e feedback</strong><br>
+  Interface e feedback para o usuario ainda em refinamento.
