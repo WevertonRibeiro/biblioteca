@@ -25,23 +25,23 @@
         <div slot="conteudo">
             <div class="container">
                 <div class="row" style="padding:20px;">
-                    <div class="col">
+                    <div class="col-md-4">
                         <label for="">Nome:</label><br>
-                        <input type="text" v-model="user.name"><br>
+                        <input type="text" class="form-control" v-model="user.name"><br>
                         <label for="">email::</label><br>
-                        <input type="text" v-model="user.email"><br>
+                        <input type="text" class="form-control" v-model="user.email"><br>
                         <label for="">Tipo:</label><br>
-                        <select v-model="user.tipo">
+                        <select v-model="user.tipo" class="form-control">
                             <option value="b">Leitor</option>
                             <option value="a">Atendente</option>
                             <option value="s">Administrador</option>
                         </select><br>
                         <label for="">Endereço:</label><br>
-                        <input type="text" v-model="user.endereco"><br>
+                        <input type="text" class="form-control" v-model="user.endereco"><br>
                         <label for="">Telefone:</label><br>
-                        <input type="text" v-model="user.telefone"><br>
+                        <input type="text" class="form-control" v-model="user.telefone"><br>
                         <label for="">CPF:</label><br>
-                        <input type="text" v-model="user.cpf"><br>
+                        <input type="text" class="form-control" v-model="user.cpf"><br>
                         <router-link to="/adm/usuarios">
                             <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
                         </router-link>

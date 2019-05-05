@@ -25,27 +25,27 @@
         <div slot="conteudo">
             <div class="container">
                 <div class="row" style="padding:20px;">
-                    <div class="col">
+                    <div class="col-md-4">
                         <label for="">Nome:</label><br>
-                        <input type="text" v-model="name"><br>
+                        <input type="text" class="form-control" v-model="name"><br>
                         <label for="">email::</label><br>
-                        <input type="text" v-model="email"><br>
+                        <input type="text" class="form-control" v-model="email"><br>
                         <label for="">senha:</label><br>
-                        <input type="text" v-model="password"><br>
+                        <input type="text" class="form-control" v-model="password"><br>
                         <label for="">Confirmar senha:</label><br>
-                        <input type="text" v-model="password_confirmation"><br>
+                        <input type="text" class="form-control" v-model="password_confirmation"><br>
                         <label for="">Tipo:</label><br>
-                        <select v-model="tipo">
+                        <select v-model="tipo" class="form-control">
                             <option value="b">Leitor</option>
                             <option value="a">Atendente</option>
                             <option value="s">Administrador</option>
                         </select><br>
                         <label for="">Endereço:</label><br>
-                        <input type="text" v-model="endereco"><br>
+                        <input type="text" class="form-control" v-model="endereco"><br>
                         <label for="">Telefone:</label><br>
-                        <input type="text" v-model="telefone"><br>
+                        <input type="text" class="form-control" v-model="telefone"><br>
                         <label for="">CPF:</label><br>
-                        <input type="text" v-model="cpf"><br>
+                        <input type="text" class="form-control" v-model="cpf"><br>
                         <router-link to="/adm/usuarios">
                             <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
                         </router-link>

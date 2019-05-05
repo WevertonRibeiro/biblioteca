@@ -25,25 +25,25 @@
         <div slot="conteudo">
             <div class="container">
                 <div class="row" style="padding:20px;">
-                    <div class="col">
+                    <div class="col-md-4">
                         <label for="">Titulo:</label><br>
-                        <input type="text" v-model="livro.titulo"><br>
+                        <input type="text" class="form-control" v-model="livro.titulo"><br>
                         <label for="">Descrição:</label><br>
-                        <textarea cols="30" rows="6" v-model="livro.descricao"></textarea><br>
+                        <textarea cols="30" class="form-control" rows="6" v-model="livro.descricao"></textarea><br>
                         <label for="">Ano:</label><br>
-                        <input type="text" v-model="livro.ano"><br>
+                        <input type="text" class="form-control" v-model="livro.ano"><br>
                         <label for="">Autor:</label><br>
-                        <input type="text" v-model="livro.autor"><br>
+                        <input type="text" class="form-control" v-model="livro.autor"><br>
                         <label for="">Editora:</label><br>
-                        <input type="text" v-model="livro.editora"><br>
+                        <input type="text" class="form-control" v-model="livro.editora"><br>
                         <label for="">Status:</label><br>
-                        <select v-model="livro.status">
+                        <select v-model="livro.status" class="form-control">
                             <option value="D">Disponivel</option>
                             <option value="R">Reservado</option>
                             <option value="A">Alugado</option>
                         </select>
                         <label for="">Imagem:</label><br>
-                        <input type="file" v-on:change="getBase64" disabled/><br>
+                        <input type="file" class="form-control" v-on:change="getBase64" disabled/><br>
                         <router-link to="/adm/livros">
                             <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
                         </router-link>

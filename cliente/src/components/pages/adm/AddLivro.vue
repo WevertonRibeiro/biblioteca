@@ -25,25 +25,25 @@
         <div slot="conteudo">
             <div class="container">
                 <div class="row" style="padding:20px;">
-                    <div class="col">
+                    <div class="col-md-4 form-group">
                         <label for="">Titulo:</label><br>
-                        <input type="text" v-model="titulo"><br>
+                        <input type="text" class="form-control" v-model="titulo"><br>
                         <label for="">Descrição:</label><br>
-                        <textarea cols="30" rows="6" v-model="descricao"></textarea><br>
+                        <textarea cols="30" class="form-control" rows="6" v-model="descricao"></textarea><br>
                         <label for="">Ano:</label><br>
-                        <input type="text" v-model="ano"><br>
+                        <input type="text" class="form-control" v-model="ano"><br>
                         <label for="">Autor:</label><br>
-                        <input type="text" v-model="autor"><br>
+                        <input type="text" class="form-control" v-model="autor"><br>
                         <label for="">Editora:</label><br>
-                        <input type="text" v-model="editora"><br>
+                        <input type="text" class="form-control" v-model="editora"><br>
                         <label for="">Status:</label><br>
-                        <select v-model="status">
+                        <select v-model="status" class="form-control">
                             <option value="D">Disponivel</option>
                             <option value="R">Reservado</option>
                             <option value="A">Alugado</option>
                         </select>
                         <label for="">Imagem:</label><br>
-                        <input type="file" v-on:change="getBase64" disabled/><br>
+                        <input type="file" class="form-control" v-on:change="getBase64" disabled/><br>
                         <router-link to="/adm/livros">
                             <button class="btn btn-success" style="margin-top:10px;">Voltar</button>
                         </router-link>
